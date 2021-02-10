@@ -1,11 +1,11 @@
 const express=require('express');
 var bodyParser=require('body-parser');
-const path=require('path');
 
 const app=express();
 
-const adminData=require("./routes/admin");
+const adminRoutes=require("./routes/admin");
 const shopRoutes=require("./routes/shop");
+const ErrorController=require("./Controller/ErrorController.js")
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json())
@@ -13,12 +13,10 @@ app.use(bodyParser.json())
 app.set('view engine','ejs');
 app.set('views','views');
 
-app.use('/admin',adminData.router);
+app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
-app.use((req,res,next)=>{
-    res.status(404).render('404',{pageTitle:'Page Not Found 404'});
-});
+app.use(ErrorController.Error404);
 
 
 
