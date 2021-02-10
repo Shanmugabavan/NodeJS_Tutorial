@@ -6,7 +6,11 @@ const adminProduct=require('./admin')
 
 router.get('/',(req,res,next)=>{
     console.log(adminProduct.products)
-    res.sendFile(path.join(rootPath,'views','shop.html'));
+    console.log(adminProduct.products.length)
+    res.render('shop',{
+        products:adminProduct.products,
+        title:"shop",
+    });
 });
 
 module.exports=router;
